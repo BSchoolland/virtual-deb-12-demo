@@ -1,0 +1,90 @@
+/* Define the color scheme using CSS variables */
+:root {
+    --background-color: #121212; /* dark background */
+    --text-color: #E0E0E0; /* light text */
+    --highlight-color: #c200b2; /* highlight color, change as needed */
+}
+
+/* General body styling */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Header styles */
+h1, h2, h3 {
+    color: var(--highlight-color);
+}
+
+/* Link styles */
+a {
+    color: var(--highlight-color);
+    text-decoration: none; /* Removes underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+.navigation {
+/* for next and prev */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.prev {
+    float: left;
+    background-color: var(--highlight-color);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 50px;
+    color: var(--background-color);
+    font-weight: bold;
+}
+
+.next {
+    float: right;
+    background-color: var(--highlight-color);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 50px;
+    color: var(--background-color);
+    font-weight: bold;
+}
+
+/* Code block styles */
+pre {
+    background-color: #1e1e1e;
+    color: #C6C6C6;
+    border-left: 5px solid var(--highlight-color);
+    padding: 10px;
+    overflow: auto;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Emphasize elements inside lists */
+ul li {
+    margin-bottom: 10px;
+}
+
+/* Side menu styles */
+.side-menu-no-scroll {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #262626;
+    padding: 20px;
+    box-sizing: border-box; /* Includes padding in the width */
+}
+
+/* Main content area styling */
+div:not(.side-menu-no-scroll) {
+    margin-left: 320px; /* Same as side menu width plus a bit more */
+    padding: 20px;
+}

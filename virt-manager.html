@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Virtual Debian-12 Demo</title>
+    <!-- import styles -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div class="side-menu-no-scroll">
+        <h1>Virtual Debian-12 Demo</h1>
+        <!-- menu for selecting steps -->
+        <ul>
+            <li><a href="index.html">Project Overview</a></li>
+            <li><a href="virt-manager.html">Creating a virtual Debian-12 machine</a></li>
+            <li><a href="managing-users.html">Managing users</a></li>
+            <li><a href="openssh.html">Using the OpenSSH server</a></li>
+            <li><a href="apache.html">Running an Apache web server</a></li>
+            <li><a href="SerialConsole.html">Using the Serial Console</a></li>
+            <li><a href="bash.html">Command Line, Bash, and functions</a></li>
+        </ul>
+    </div>
+    <div>
+        <h2>1. Creating a virtual Debian-12 machine</h2>
+        <p>In this project, I'll show you how to create a virtual Debian-12 machine using the virt-manager tool. </p>
+        <h3>Requirements</h3>
+        <p>Please note that you'll need to be running linux, and have virt-manager installed. It will also help if you
+            have a decent computer, if you're running this on a potato, it will be slow and you may have to alocate
+            fewer resources to the virtual machine.</p>
+        <h3>Step 1: Install virt-manager</h3>
+        <p>First, you'll need to install virt-manager. You can do this by running the following commands:</p>
+        <pre>
+    sudo apt install -y qemu-kvm libvirt-clients virt-manager  
+    sudo apt install -y libvirt-daemon-system bridge-utils virtinst libvirt-daemon  
+    sudo apt install -y qemu qemu-kvm qemu-system qemu-utils  
+    sudo usermod -aG libvirt $(whoami)
+    sudo usermod -aG libvirt-qemu $(whoami)</pre>
+        <p>Note: The last two commands utilize the $(whoami) command to get the current user. You can also just enter
+            your username if you want!</p>
+        <h3>Step 2: Download the Debian-12 ISO</h3>
+        <p>Next, you'll need to download the Debian-12 ISO. You can do this by visiting debian's official website at <a
+                        href="https://www.debian.org/download" target="_blank">https://www.debian.org/download</a> and downloading the ISO. </p>
+        <h3>Step 3: Create a new virtual machine</h3>
+        <ul>
+            <li>Next, you'll need to create a new virtual machine. To do this, open virt-manager using
+                <pre>
+    virt-manager</pre> and click on the "Create a new virtual machine" button. The first question will ask you to select an
+                installation method. Choose "Local install media (ISO image or CDROM)" and click "Forward".
+            </li>
+            <li>Next, you'll need to select the Debian-12 ISO that you downloaded earlier. Click "Browse" and navigate
+                to the location of the ISO. Select the ISO and click "Choose Volume".</li>
+            <li>virt-manager should automatically detect the operating system and version. If it doesn't, you can
+                manually select "Linux" and "Debian 12" from the dropdown menus.</li>
+            <li>Next, you'll need to allocate resources to the virtual machine. You can choose how much memory and CPU
+                cores to allocate. For this demo, I'll allocate 4GB of memory (enter 4096) and 2 CPU cores. If you're
+                running on the aforementioned potato, you may want to allocate fewer resources.</li>
+            <li>Next, you'll need to allocate storage to the virtual machine. You can choose how much storage to
+                allocate. 20GB should be plenty for this demo.</li>
+            <li>Finally, you'll need to name the virtual machine and click "Finish". This will create and then start the
+                virtual machine.</li>
+        </ul>
+        <h3>Step 4: Install Debian-12</h3>
+        <p>I personally find the installation process to be pretty self-explanatory, and default options are almost
+            always fine. If you don't need a complete walkthrough, you can skip this section. I've used the Install
+            option, but feel free to use the Graphical Install option if you prefer.</p>
+        <ul>
+            <li>Once the virtual machine has started, you'll need to install Debian-12. Select the "Install" option
+            </li>
+            <li>Next, you'll need to select your language, location, and keyboard layout. The default options should be
+                fine for most users. Press enter a couple of times to accept the defaults, then the installer will
+                start.</li>
+            <li>Next, you'll need to configure the network. Again, the default options are fine for this demo. Leave the
+                hostname as "debian" and the domain name blank.</li>
+            <li>Next, you'll configure the root password. Enter a password you'll remember, then confirm it.</li>
+            <li>You'll also need to create a user account. Enter a name, username, and password for the user account.
+            </li>
+            <li>Configure the clock based on your time zone.</li>
+            <li>Next, you'll need to partition the disk. For this demo, I'll choose the "Guided - use entire disk"
+                option. This will automatically partition the disk for you. Choose the disk you allocated earlier. We'll
+                select the "All files in one partition" option. This will create a single partition for the entire disk.
+                Press enter to confirm the changes. This will load for a bit, and then you'll need to confirm the
+                changes (again) by pressing enter. Here, you'll again have to confirm the changes because of course you
+                do. Select "Yes" (not the default "No") and press enter.</li>
+            <li>The next prompt will ask you if you want to scan aditional installation media. Select "No" and press
+                enter.</li>
+            <li>Next, we'll select a country, and then go through two more prompts where the default is fine. The
+                installer will then start installing the base system. During this process you can opt into the Debian
+                package survey if you want, or just select "No" and press enter.</li>
+            <li>Next we'll install aditional software. For this demo, we don't actually need any of the options. If you
+                want to install any of the options, feel free to select them, but I'll use the arrow keys and space bar
+                to deselect all of the options, then press enter.</li>
+            <li>This will take some time based on how many packages you selected. Once the installation is complete, the
+                installer will prompt you to restart the system. Select "Continue" and press enter.</li>
+        </ul>
+        <h3>Step 5: Log in to Debian-12</h3>
+        <p>Once the virtual machine has restarted, you'll be prompted to log in. Enter the username and password you
+            created earlier. You should now be logged in to Debian-12!</p>
+        <h3>Conclusion</h3>
+        <p>That's it! We've successfully created a virtual Debian-12 machine using the virt-manager tool.</p>
+    </div>
+    <div class="navigate">
+        <a class="prev" href="index.html">Previous: Project Overview</a>
+        <a class="next" href="openssh.html">Next: Using the OpenSSH server</a>
+    </div>
+
+
+
+
+</body>
+
+</html>
