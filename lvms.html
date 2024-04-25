@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Virtual Debian-12 Demo</title>
+    <!-- import styles -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div class="side-menu-no-scroll">
+        <h1>Virtual Debian-12 Demo</h1>
+        <!-- menu for selecting steps -->
+        <ul>
+            <li><a href="index.html">Project Overview</a></li>
+            <li><a href="virt-manager.html">Creating a virtual Debian-12 machine</a></li>
+            <li><a href="managing-users.html">Managing users</a></li>
+            <li><a href="openssh.html">Using the OpenSSH server</a></li>
+            <li><a href="apache.html">Running an Apache web server</a></li>
+            <li><a href="lvms.html">Logical Volume Management</a></li>
+            <li><a href="SerialConsole.html">Using the Serial Console</a></li>
+            <li><a href="bash.html">Command Line, Bash, and functions</a></li>
+        </ul>
+    </div>
+    <div>
+        <h2>Part 5: Logical Volume Management</h2>
+        <p>Logical Volume Management (LVM) is a method of managing storage on a Linux system.  It allows for the creation of logical volumes, which can be resized and moved around without the need to unmount the filesystem.  This is useful for systems that need to be up 24/7, as it allows for the resizing of filesystems without downtime.  In this section, I decided to get some hands-on experience with this powerful technology using my Debian-12 virtual machine.</p>
+        <h3>Step 1: Installing the LVM package</h3>
+        <p>Most LVM related commands require root privileges, so I started by elevating to root:</p>
+        <pre>su -</pre>
+        <p>Now, to use LVM, I first had to install it by running the following command:</p>
+        <pre>apt install lvm2</pre>
+        <h3>Step 2: Adding Additional Hard Drives while the VM was running (very cool)</h3>
+        <p>One of the main benefits of LVM is the ability to add additional hard drives to a system while it is running.  To test this, I added two 5GB storage devices to my VM by clicking "show hardware details" in virt-manager, and then adding two drives in the "add hardware" section, all while my VM was running, managing ssh connections, and hosting a website.  I then ran the following command to see the new drives:</p>
+
+        <pre>
+lsblk
+</pre>
+        <p>This displayed the new drives: vdb and vdc, each 5GB.  A success!</p>
+        <h3>Step 3: Creating a Physical Volume</h3>
+        <p>Next, I created a physical volume for each of the new drives with the following commands:</p>
+        <pre>pvcreate /dev/vdb
+pvcreate /dev/vdc</pre>
+        <h3>Step 4: Creating a Volume Group</h3>
+        <p>After creating the physical volumes, I created a volume group with the following command:</p>
+        <pre>vgcreate my_vg /dev/vdb /dev/vdc</pre>
+        <p>This created a volume group named "my_vg" that contained the two physical volumes.  The volume group allows LVM to manage the two physical volumes as if they were a single device.</p>
+        <h3>Step 5: Creating a Logical Volume</h3>
+        <p>The final step in setting up LVM (for now) was to create a logical volume.  I created a logical volume named "my_lv" that used 8GB of space from the volume group "my_vg" with this command:</p>
+        <pre>lvcreate -n my_lv -L 8G my_vg</pre>
+        <p>The storage was now set up!  Onward to partitions!</p>
+        <h3>Step 6: Creating a filesystem</h3>
+        <p>Now that I had a logical volume, I needed to create a filesystem on it.  I chose to use the ext4 filesystem, which I'd learned about in intro to linux.  I remember this being harder in class, but I found a very simple command to do it:</p>
+        <pre>mkfs.ext4 /dev/my_vg/my_lv</pre>
+        <h3>Step 7: Mounting the filesystem</h3>
+        <p>Before I could configure the new filesystem to mount at boot, I wanted to test it out manually.  I created a directory to mount the filesystem to, and then mounted the filesystem with the following commands:</p>
+        <pre>mkdir /mnt/my_lv
+mount /dev/my_vg/my_lv /mnt/my_lv</pre>
+        <p>After this, I was able to navigate to the /mnt/my_lv directory and create files. Pretty nice!</p>
+        <h3>Step 8: Configuring the filesystem to mount at boot</h3>
+        <p>Almost there! To configure the filesystem to mount at boot, I had to edit the /etc/fstab file.  I used nano to add the following line to the file:</p>
+        <pre>/dev/my_vg/my_lv /mnt/my_lv ext4 defaults 0 0</pre>
+        <p>A reboot proved that the filesystem was being automatically mounted at boot.</p>
+        <h3>Conclusion</h3>
+        <p>By the end of this process, I was able to add two new hard drives to my Debian-12 VM, create a volume group, logical volume, and filesystem on the new drives, and configure the filesystem to mount at boot.  LVM is quite a powerful tool for storage, and not too difficult to use if you know the commands.</p>
+        <img src="images/LVM.png" alt="LVM" style="width: 50%; height: 50%;">
+
+    </div>
+    <div class="navigate">
+        <a class="prev" href="apache.html">Previous: Running an Apache web server</a>
+        <a class="next" href="SerialConsole.html">Next: Logical Volume Management</a>
+    </div>
+
+
+</body>
+
+</html>
