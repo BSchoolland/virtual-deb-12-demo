@@ -24,25 +24,31 @@
     </div>
     <div>
         <h2>Part 2: Managing users</h2>
-        <p>Next, I wanted to test the multi-user capabilities of my new Debian-12 virtual machine. I created a new user named "testuser" and gave them sudo privileges. Here's how I did it:</p>
+        <p>Next, I wanted to test the multi-user capabilities of my new Debian-12 virtual machine. I created a new user
+            named "testuser" and gave them sudo privileges. Here's how I did it:</p>
         <h3>Step 1: Install the sudo package</h3>
-        <p>At first, sudo was not installed on the Debian-12 VM. Since I would need it, I elevated to root and installed it with the following commands:</p>
+        <p>At first, sudo was not installed on the Debian-12 VM. Since I would need it, I elevated to root and installed
+            it with the following commands:</p>
         <pre>
-    su -
-    apt install sudo
+su -
+apt install sudo
 </pre>
         <h3>Step 2: Create a new user</h3>
         <p>Next (still running as root), I created a new user named "testuser" with the following command:</p>
         <pre>
-    adduser testuser
+adduser testuser
 </pre>
-        <p>I was prompted to enter some information about the new user, such as their password and full name. I entered the information and the user was created.</p>
+        <p>I was prompted to enter some information about the new user, such as their password and full name. I entered
+            the information and the user was created.</p>
         <h3>Step 3: Add the new user to the sudo group</h3>
-        <p>Finally, I decided to add this new user to the sudo group so that they could run commands with elevated privileges. I did this with the following command:</p>
+        <p>Finally, I decided to add this new user to the sudo group so that they could run commands with elevated
+            privileges. I did this with the following command:</p>
         <pre>
-    usermod -aG sudo testuser
+usermod -aG sudo testuser
 </pre>
-        <p>After this, I was able to reboot, log in as "testuser", and run commands with sudo, which was a great success. As you can see in the image below, I was able to install vim-nox with my newfound sudoer powers!  If only I could use vscode... ah the struggles of not having a GUI</p>
+        <p>After this, I was able to reboot, log in as "testuser", and run commands with sudo, which was a great
+            success. As you can see in the image below, I was able to install vim-nox with my newfound sudoer powers! If
+            only I could use vscode... ah the struggles of not having a GUI</p>
         <img src="images/ManageUsers.png" alt="managing users" style="width: 50%; height: 50%;">
     </div>
     <div class="navigate">

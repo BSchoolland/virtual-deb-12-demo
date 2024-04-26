@@ -30,11 +30,11 @@
         <h3>Step 1: Install virt-manager</h3>
         <p>First, I had to make sure virt manager was installed, for which I used the following commands.</p>
         <pre>
-    sudo apt install -y qemu-kvm libvirt-clients virt-manager  
-    sudo apt install -y libvirt-daemon-system bridge-utils virtinst libvirt-daemon  
-    sudo apt install -y qemu qemu-kvm qemu-system qemu-utils  
-    sudo usermod -aG libvirt $(whoami)
-    sudo usermod -aG libvirt-qemu $(whoami)</pre>
+sudo apt install -y qemu-kvm libvirt-clients virt-manager  
+sudo apt install -y libvirt-daemon-system bridge-utils virtinst libvirt-daemon  
+sudo apt install -y qemu qemu-kvm qemu-system qemu-utils  
+sudo usermod -aG libvirt $(whoami)
+sudo usermod -aG libvirt-qemu $(whoami)</pre>
         <p>Note: The last two commands utilize the $(whoami) command to get the current user. You can also just enter
             your username if you want!</p>
         <h3>Step 2: Download the Debian-12 ISO</h3>
@@ -44,7 +44,7 @@
         
             <p>Now that I had the ISO, I opened virt-manager by running the following command in the terminal:
                 <pre>
-    virt-manager</pre> and clicked on the "Create a new virtual machine" button. From here I went through all the steps to create a new virtual machine.  I won't go through all the steps here as there were quite a few and most of them were really simple, but I'll highlight a few key steps.
+virt-manager</pre> and clicked on the "Create a new virtual machine" button. From here I went through all the steps to create a new virtual machine.  I won't go through all the steps here as there were quite a few and most of them were really simple, but I'll highlight a few key steps.
                 </p>
         <ul>
             <li>I made sure to choose my Debian ISO as the installation media</li>
