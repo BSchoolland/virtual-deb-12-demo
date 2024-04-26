@@ -4,7 +4,7 @@ Welcome to the repository for Virtual Debian 12 Demo, a static website hosted on
 
 ## Access the Website
 
-You can view the live site at: 
+You can view the live site at: https://bschoolland.github.io/virtual-deb-12-demo/  
 
 ## Technologies Used
 
