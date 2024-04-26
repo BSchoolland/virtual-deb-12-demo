@@ -17,15 +17,30 @@
             <li><a href="managing-users.html">Managing users</a></li>
             <li><a href="openssh.html">Using the OpenSSH server</a></li>
             <li><a href="apache.html">Running an Apache web server</a></li>
+            <li><a href="lvms.html">Logical Volume Management</a></li>
             <li><a href="SerialConsole.html">Using the Serial Console</a></li>
             <li><a href="bash.html">Command Line, Bash, and functions</a></li>
         </ul>
     </div>
     <div>
-        
+        <h2>Part 5: Using the Serial Console</h2>
+        <p>Before this project, I had only heard of serial communication in the context of Arduino projects. Now, I know that serial communication can be used to access the console of a linux server or virtual machine.  This is particularly useful if the machine runns into issues that prevent it or the ssh server from starting, or if the network is down.  I decided to give it a try on my Debian-12 VM.</p>
+        <h3>Step 1: Configuring Grub</h3>
+        <p>At first, the grub bootloader was not configured to use the serial console.  Careful not to break anything, I edited the grub configuration file with the following command:</p>
+        <pre>sudo nano /etc/default/grub</pre>
+        <p>Inside the file, I found the line that started with "GRUB_CMDLINE_LINUX_DEFAULT" and replaced "quiet" with "quiet console=tty0 console=ttyS0,115200".  This tells the kernel to use the serial console at 115200 baud rate (higher baud rate means faster communication).  I then saved the file and updated grub with the following command:</p>
+        <pre>sudo update-grub</pre> 
+        <h3>Step 2: Installing and using screen</h3>
+        <p>Next, I installed the screen package, which would allow me to connect to the serial console of the VM.  I did this with the following command:</p>
+        <pre>sudo apt install screen</pre>
+        <p>After installing screen, I connected to the serial console of the VM, using the same baud rate as I had configured in grub:</p>
+        <pre>sudo screen /dev/pts/4 115200</pre>
+        <p>This allowed me to log into the VM similar to how I would with ssh.</p>
+        <h3>Conclusion</h3>
+        <p>Using the serial console was and interesting skill to practice.  I may end up using something similar in the future to connect to a raspberry pi.  It's nice to know that there are multiple ways to access a machine, in case one method fails.</p>
     </div>
     <div class="navigate">
-        <a class="prev" href="apache.html">Previous: Running an Apache web server</a>
+        <a class="prev" href="lvms.html">Previous: Logical Volume Management</a>
         <a class="next" href="bash.html">Next: Command Line, Bash, and functions</a>
     </div>
 

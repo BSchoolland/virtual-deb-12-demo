@@ -17,18 +17,86 @@
             <li><a href="managing-users.html">Managing users</a></li>
             <li><a href="openssh.html">Using the OpenSSH server</a></li>
             <li><a href="apache.html">Running an Apache web server</a></li>
+            <li><a href="lvms.html">Logical Volume Management</a></li>
             <li><a href="SerialConsole.html">Using the Serial Console</a></li>
-            <li><a href="bash.html">Command Line, Bash, and functions</a></li>
+            <li><a href="bash.html">Bash files and functions</a></li>
         </ul>
     </div>
     <div>
-        
+        <h2>Part 6: Bash files and functions</h2>
+        <p>By this point I had learned a lot about the Debian-12 operating system and how to manage it. From this point on, I wanted to do a little bash scripting with my VM.  Since I'm relatively new to bash scripting, I decided to start with some basic syntax like variables, loops, and functions.</p>
+        <h3>Step 1: Regular command line</h3>
+        <p>Before I started writing scripts, I needed to create some directories and files to work with.  I created a directory (which I called "bin") and a file (which I called "forloop.sh") with the following commands:</p>
+        <pre>mkdir bin
+touch bin/forloop.sh</pre>
+<p>I also made a folder called "inclass" with this command:</p>
+<pre>mkdir inclass</pre>
+        <h3>Step 2: Writing a script</h3>
+        <p>Next, I opened the "forloop.sh" file in vim and wrote a simple bash script that would print my username to the terminal 10 times.  Here is the script:</p>
+        <pre>#!/bin/bash 
+# for_loop 
+FNAME=testuser
+LST=$(seq 1 10)
+for x in $LST
+do 
+    echo $FNAME
+done
+#--</pre>
+        <p>After saving the file, I made it executable with this command:</p>
+        <pre>chmod +x bin/forloop.sh</pre>
+        <h3>Step 3: Running the script</h3>
+        <p>Finally, I ran the script with the following command:</p>
+        <pre>./bin/forloop.sh</pre>
+        <p>As expected, the script printed "testuser" 10 times to the terminal.</p>
+        <h3>Step 4: Simple if statement</h3>
+        <p>After completing the for loop script, I created a new script that was slightly more complex, and designed to simulate a traffic light.  I created a new file called "stoplight.sh" with the following command:</p>
+<pre>nano bin/stoplight.sh</pre>
+        <pre>#!/bin/bash
+# stoplight
+# simple if test 
+
+display_light() {
+    case $1 in 
+    "red") echo "red light stop.";;
+    "yellow") echo "if cop slow, if not speed up" ;;
+    "green") echo "green light go.";;
+    *)   echo "cant";;
+    esac
+}
+# main 
+while true 
+    do
+    echo -n "Enter a stoplight color all lower case -> "
+    read light
+    # [ is equal to cmd  test 
+    if [ $light == "q" ]
+    then break
+    fi
+    display_light $light
+    done 
+#--</pre>
+        <p>After saving the file, I made it executable with this command:</p>
+        <pre>chmod +x bin/stoplight.sh</pre>
+        <p>And was able to run the script!</p>
+        <h3>Step 5: Adding bin and inclass to PATH</h3>
+        <p>Next, I wanted to test the ability to run my scripts from any directory.  I opened my .bashrc file with the following command:</p>
+        <pre>nano ~/.bashrc</pre>
+        <p>And added the an export command to the end of the file:</p>
+        <pre>export PATH=$PATH:~/bin:~/inclass</pre>
+        <p>After saving the file, I ran the following command to update the .bashrc file:</p>
+        <pre>source ~/.bashrc</pre>
+        <p>Now, I could run my scripts from any directory!</p>
+        <h3>Step 6: Using a bash file to automate VM setup</h3>
+        <p>Finally, I tested some automation by copying the contents of this webpage: <a>https://phillipsd.com/210/sp24_mkstuff.txt</a> into my terminal.  This simple action did a lot of wirk for me including making helpful functions, aliases, and would have set up my path if I hadn't already done so.</p>
+        <h3>Conclusion</h3>
+        <p>These scripts were simple, but they demonstrate the ability to easilly automate tasks with bash scripting.  Now that I have a basic understanding of bash scripting, I can start adding useful scripts to my VM or my laptop.</p>
+        <img src="images/bash.png" alt="bash" width="500">
     </div>
     <div class="navigate">
         <a class="prev" href="SerialConsole.html">Previous: Using the Serial Console</a>
         <a class="next" href="index.html">Return to Project Overview</a>
     </div>
-    
+
 
 </body>
 
